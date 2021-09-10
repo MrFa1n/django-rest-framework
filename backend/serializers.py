@@ -6,7 +6,7 @@ class TeacherSerializer(serializers.HyperlinkedModelSerializer):
 		model = Teacher
 		fields = ('name', 'salary', 'photo', 'date')
 
-class LessonSerializer(serializers.HyperlinkedModelSerializer):
+class LessonSerializer(serializers.ModelSerializer):
     class Meta:
         model = Lesson
         fields = ('pin_teacher', 'max_grade', 'name_lesson', 'description')

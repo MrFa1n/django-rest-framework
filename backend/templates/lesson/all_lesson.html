@@ -1,0 +1,6 @@
+<table>
+        <tr><th>Укрепленный учитель за этим предметом</th><th>Максимальная оценка на данном предмете</th><th>Название урока</th><th>Описание</th></tr>
+        {% for person in lesson %}
+        <tr><td>{{ person.pin_teacher }}</td><td>{{ person.max_grade }}</td><td>{{ person.name_lesson }}</td><td>{{ person.description }}</td></tr>
+        {% endfor %}
+</table>

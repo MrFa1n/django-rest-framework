@@ -1,10 +1,12 @@
-from django.shortcuts import render
+from django.http.response import HttpResponse, HttpResponseRedirect
+from django.shortcuts import redirect, render
 from rest_framework.generics import ListAPIView
 from rest_framework.generics import CreateAPIView
 from rest_framework.generics import DestroyAPIView
-from rest_framework.generics import UpdateAPIView
+from rest_framework.generics import UpdateAPIView 
 from .serializers import TeacherSerializer, LessonSerializer
 from .models import Teacher, Lesson
+from .forms import PostForm
 
 # Create your views here.
 class ListTeacherAPIView(ListAPIView):
@@ -38,3 +40,16 @@ class UpdateLessonAPIView(UpdateAPIView):
 class DeleteLessonAPIView(DestroyAPIView):
     queryset = Lesson.objects.all()
     serializer_class = LessonSerializer
+
+def all_lesson(request):
+    lesson = Lesson.objects.all()
+    return render(request, "lesson/all_lesson.html", {"lesson": lesson})
+
+def list_and_add_lesson(request):
+    context = {}
+    context['form']= PostForm()
+    form = PostForm(request.POST)
+    if form.is_valid():
+        form.save()
+        all_lesson()
+    return render(request, "lesson/index.html", context)
